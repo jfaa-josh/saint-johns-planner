@@ -19,6 +19,10 @@ dev = [
     "pre-commit",
     "ruff",
     "mypy",
+    "types-requests",
+
+    # These are repeated here for local dev only to avoid errors
+    "requests",
 ]
 
 [tool.ruff]
@@ -58,33 +62,12 @@ warn_unused_ignores = false
 strict_equality = false
 show_error_codes = true
 pretty = true
-files = ["src", "tests"]
-mypy_path = ["src", "tests"]
+files = ["src"]
+mypy_path = ["src"]
 # Optionally tighten later:
 # disallow_untyped_defs = true
 # check_untyped_defs = true
 # strict = true
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-markers = ["integration: marks integration tests"]
-
-# sensible defaults so don't need to pass them at command
-addopts = """
--m integration -rA --full-trace --durations=0
---capture=tee-sys
-"""
-
-# make pytest stream logs live to the console
-log_cli = true
-log_cli_level = "INFO"
-log_level = "INFO"
-log_cli_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
-log_cli_date_format = "%H:%M:%S"
-
-# [build-system]
-# requires = ["maturin>=1.0,<2.0"]
-# build-backend = "maturin"
 
 [build-system]
 requires = ["setuptools>=65.0", "wheel"]
