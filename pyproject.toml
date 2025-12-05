@@ -1,0 +1,99 @@
+[project]
+name = "stocks-ops"
+version = "0.1.0"
+description = "Deployable stock price data pipeline including MLOps for processing and analysis"
+readme = "README.md"
+authors = [
+    {name = "Josh Fody", email = "josh@jfadvancedanalytics.com"}
+]
+requires-python = "~=3.13.0" # means “3.13.x”
+dependencies = [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "requests",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit",
+    "ruff",
+    "mypy",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+respect-gitignore = true
+
+[tool.ruff.lint]
+# Focus on actual bugs and obvious issues, not micro-style:
+select = [
+    "F",    # pyflakes: undefined names, etc. (real bugs)
+    "B",    # flake8-bugbear: likely bugs, not style
+    "UP",   # pyupgrade: safe modernisation
+]
+# No global style-enforcement codes like E, I, C4.
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# If you ever want import-sorting back, re-enable:
+# [tool.ruff.lint.isort]
+# known-first-party = ["src"]
+
+[tool.ruff.format]
+# Be much less opinionated about formatting:
+quote-style = "preserve"              # don't auto-convert single ↔ double quotes
+indent-style = "space"
+skip-magic-trailing-comma = true      # avoid aggressively reflowing argument lists
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+# Relax a bit of the noise:
+warn_unused_ignores = false
+strict_equality = false
+show_error_codes = true
+pretty = true
+files = ["src", "tests"]
+mypy_path = ["src", "tests"]
+# Optionally tighten later:
+# disallow_untyped_defs = true
+# check_untyped_defs = true
+# strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: marks integration tests"]
+
+# sensible defaults so don't need to pass them at command
+addopts = """
+-m integration -rA --full-trace --durations=0
+--capture=tee-sys
+"""
+
+# make pytest stream logs live to the console
+log_cli = true
+log_cli_level = "INFO"
+log_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+log_cli_date_format = "%H:%M:%S"
+
+# [build-system]
+# requires = ["maturin>=1.0,<2.0"]
+# build-backend = "maturin"
+
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# tell setuptools “all our packages live under src/”
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+# look for any packages under src/
+where = ["src"]

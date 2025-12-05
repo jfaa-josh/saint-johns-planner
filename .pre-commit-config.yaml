@@ -1,0 +1,70 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=512000"]  # 500MB max file size
+      - id: check-merge-conflict  # always check for merge conflicts
+      - id: check-toml
+      - id: mixed-line-ending
+        args: ["--fix=lf"]  # unix style line endings
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  # YAML validation
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.37.0
+    hooks:
+      - id: yamllint
+        args:
+          - --config-data
+          - |
+            extends: default
+            rules:
+              line-length:
+                max: 120
+                level: warning
+              document-start:
+                present: false
+
+  - repo: local
+    hooks:
+      - id: validate-python-version
+        name: Validate Python Version
+        entry: ./scripts/validate_python_version.sh
+        language: system
+        types: [toml]
+
+      - id: check-venv-sync
+        name: Check if .venv is synced
+        entry: ./scripts/check_venv_sync.sh
+        language: system
+        types: [toml]
+
+      # Run formatter only when you explicitly ask for it:
+      #   pre-commit run ruff-format --all-files --hook-stage manual
+      - id: ruff-format
+        name: Ruff format (manual)
+        entry: uv
+        language: system
+        types: [python]
+        stages: [manual]
+        args: ["run", "ruff", "format"]
+
+      # Lightweight lint on only the files changed in this commit.
+      # With the new Ruff config, this is mostly real bugs / UP, not style trivia.
+      - id: ruff-check-fix
+        name: Ruff check and fix for pre-commit
+        entry: uv
+        language: system
+        types: [python]
+        args: ["run", "ruff", "check", "--fix"]
+
+      - id: mypy-check
+        name: Run mypy through uv
+        entry: uv
+        language: system
+        pass_filenames: false
+        args: ["run", "mypy"]

@@ -1,0 +1,160 @@
+# ========================
+# Python Bytecode & Caches
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*$py.class
+.pytest_cache/
+*.pyc
+
+# ================
+# C Extensions
+# ================
+*.so
+*.dll
+*.dylib
+
+# ======================
+# Virtual Envs
+# ======================
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+*.conda
+*.venv
+*.env
+conda-meta/
+*.yaml.lock
+*.lock
+!uv.lock
+
+# =================
+# Package Management
+# =================
+*.egg-info/
+.eggs/
+*.egg
+.build/
+build/
+dist/
+develop-eggs/
+lib/
+lib64/
+
+# =============
+# Pip Stuff
+# =============
+pip-log.txt
+pip-delete-this-directory.txt
+pip-selfcheck.json
+
+# =======================
+# Environment & Secrets
+# =======================
+.env
+.env.*
+.secret
+secrets.*
+credentials.*
+
+# ======================
+# Jupyter & IPython
+# ======================
+.ipynb_checkpoints/
+*.ipynb
+.ipython/
+.jupyter/
+*.sage.py
+
+# ============
+# Coverage / CI
+# ============
+.coverage
+coverage.*
+htmlcov/
+nosetests.xml
+test-output.xml
+junit-*.xml
+.tox/
+.nox/
+.cache/
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# =================
+# pre-commit / dev
+# =================
+.pre-commit-config.yaml.bak
+.pre-commit-cache/
+*.rej
+*.orig
+*.bak
+*.swp
+*.swo
+
+# ====================
+# IDEs and Editors
+# ====================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.DS_Store
+*.directory
+
+# ============
+# Logs & Dumps
+# ============
+*.log
+*.out
+*.err
+*.trace
+*.dump
+
+# ===============
+# Build Metadata
+# ===============
+MANIFEST
+*.manifest
+*.spec
+
+# ==============
+# Local Data
+# ==============
+# Ignore everything in /data except for test scripts needed in ci
+/data/**
+!/data/
+!/data/test_data/
+!/data/test_data/inputs/
+!/data/test_data/inputs/**
+
+# ====================
+# Misc (make, temp, etc)
+# ====================
+*.tmp
+*.temp
+*.pid
+*.run
+*.bak
+*.orig
+*.old
+*.sw?
+*.~*
+__debug__/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.nfs*
+
+# ==================
+# Ignore backups
+# ==================
+requirements*.bak
+*.yml.bak
+*.yaml.bak
